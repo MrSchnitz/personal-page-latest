@@ -1,0 +1,22 @@
+---
+/**
+ * three.js background: 300 floating `</>` glyphs.
+ * transition:persist keeps the same <canvas> DOM node (and its WebGL context)
+ * alive across view-transition navigations — the scene never restarts.
+ * Hidden entirely when backdrop-filter is unsupported (.not-support-blur-bg),
+ * matching the 2023 site.
+ */
+---
+
+<div
+  id="scene"
+  transition:persist="scene"
+  class="scene-wrap fixed inset-0 blur-xs md:blur-none not-support-blur-bg"
+  aria-hidden="true"
+>
+  <canvas id="scene-canvas"></canvas>
+</div>
+
+<script>
+  import "../scripts/scene";
+</script>

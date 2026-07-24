@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "home": {
+      "title": "Jan Bauer – Frontend developer",
+      "description": "Personal page of Jan Bauer, a frontend developer focused on web applications built with React, Next.js and TypeScript."
+    },
+    "about": {
+      "title": "About – Jan Bauer",
+      "description": "Who I am: a software developer focused on frontend development with React and TypeScript, with a master's degree in Information Technology."
+    },
+    "experiences": {
+      "title": "Experiences – Jan Bauer",
+      "description": "Work experience: software engineer at Kiwi.com, frontend developer at Seznam.cz and software developer at Tietoevry."
+    },
+    "education": {
+      "title": "Education – Jan Bauer",
+      "description": "Master's and bachelor's degrees in Information and Communication Technology from the Technical University of Ostrava."
+    },
+    "skills": {
+      "title": "Skills – Jan Bauer",
+      "description": "Technologies I work with: JavaScript, TypeScript, React, Next.js, Node.js, Tailwind CSS and more."
+    }
+  },
+  "navigation": {
+    "home": "home",
+    "about": "about",
+    "experiences": "experiences",
+    "education": "education",
+    "skills": "skills"
+  },
+  "navigationArrows": {
+    "left": "ArrowLeft",
+    "right": "ArrowRight"
+  },
+  "pages": {
+    "home": {
+      "title": "Jan Bauer",
+      "subtitle": "Frontend developer"
+    },
+    "about": {
+      "first": "Hello there,\nI am a software developer with a primary focus on frontend development for web-based applications, utilizing React and TypeScript. On the backend, I most commonly use NodeJS and TypeScript. I hold a master's degree in Information Technology from the Technical University of Ostrava, reflecting a solid foundation of theoretical knowledge and practical skills in the field.",
+      "second": "Beyond coding, I enjoy dabbling in video editing, motion graphics, or image editing. Away from the computer, I also like taking photos and videos with my camera and drone or you might spot me biking or jogging, followed by some downtime with movies or TV shows."
+    },
+    "experiences": {
+      "kiwi": {
+        "title": "Kiwi.com",
+        "date": "1. 11. 2022 – now",
+        "position": "Software engineer",
+        "location": "Brno",
+        "description": [
+          "Development of the Kiwi.com Booking page and other services",
+          "Delivered frontend solutions using React (TypeScript), Next.js, Redux and XState",
+          "Built responsive interfaces with TailwindCSS and Styled Components based on Figma designs",
+          "Implemented modern API integrations with REST and GraphQL",
+          "Optimized web applications for mobile WebView compatibility",
+          "Worked in a Scrum environment across multiple engineering teams",
+          "Implemented analytics tracking through Datadog for data-driven improvements",
+          "Ensured code quality through Jest unit tests and Cypress E2E testing",
+          "Managed deployments through GitLab CI/CD pipelines",
+          "Maintained code standards through code reviews"
+        ]
+      },
+      "seznam": {
+        "title": "Seznam.cz",
+        "date": "16. 8. 2021 – 31.10.2022",
+        "position": "Frontend developer",
+        "location": "Brno",
+        "description": [
+          "Development of Seznam.cz homepage, Seznam.cz profile and other services",
+          "Worked in a cross-functional agile team with backend, UX/UI, and PM",
+          "Built scalable frontend solutions using React (TypeScript), Redux, Redux-Saga, and Node.js",
+          "Implemented modern API integrations with REST and GraphQL",
+          "Created responsive UI using TailwindCSS and SCSS following Figma designs",
+          "Collaborated in cross-platform initiatives",
+          "Collected analytics data used in Grafana",
+          "Maintained code quality through Jest unit testing and code reviews"
+        ]
+      },
+      "tieto": {
+        "title": "Tietoevry Czechia",
+        "date": "1. 3. 2018 – 1. 11. 2020",
+        "position": "Software developer",
+        "location": "Ostrava",
+        "description": [
+          "First peek into enterprise web development",
+          "Developed full-stack solutions for internal business applications",
+          "Frontend: React (TypeScript), Redux, Redux-saga, Node.js, SCSS",
+          "Backend: Java, Spring Boot, PostgreSQL, MongoDB",
+          "Collaborated in an agile development environment"
+        ]
+      }
+    },
+    "education": {
+      "vsb-ing": {
+        "title": "Technical University of Ostrava",
+        "faculty": "Faculty of Electrical Engineering and Computer Science",
+        "study": "Master study",
+        "year": "2019 - 2021",
+        "location": "Ostrava",
+        "program": "Program: Information and Communication Technology",
+        "specialization": "Specialization: Computer Science and Technology"
+      },
+      "vsb-bc": {
+        "title": "Technical University of Ostrava",
+        "faculty": "Faculty of Electrical Engineering and Computer Science",
+        "study": "Bachelor study",
+        "year": "2016 - 2019",
+        "location": "Ostrava",
+        "program": "Program: Information and Communication Technology",
+        "specialization": "Specialization: Computer Science and Technology"
+      }
+    }
+  }
+}

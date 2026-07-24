@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Experience from "../../components/Experience.astro";
+import { EXPERIENCES } from "../../config/experiences";
+import { asLocale, useTranslations, tList, getLocaleStaticPaths } from "../../i18n";
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+const locale = asLocale(Astro.params.locale);
+const t = useTranslations(locale);
+---
+
+<BaseLayout locale={locale} page="experiences">
+  <div class="md:max-w-ex-page-m lg:max-w-fit">
+    {
+      EXPERIENCES.map((experience, index) => (
+        <Experience
+          class={index < EXPERIENCES.length - 1 ? "mb-6" : undefined}
+          link={experience.link}
+          logo={experience.logo}
+          logoWhite={experience.logoWhite}
+          title={t(`pages.experiences.${experience.key}.title`)}
+          date={t(`pages.experiences.${experience.key}.date`)}
+          position={t(`pages.experiences.${experience.key}.position`)}
+          location={t(`pages.experiences.${experience.key}.location`)}
+          description={tList(locale, `pages.experiences.${experience.key}.description`)}
+        />
+      ))
+    }
+  </div>
+</BaseLayout>

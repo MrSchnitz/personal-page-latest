@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+  /** symbol id inside the sprite */
+  icon: string;
+  class?: string;
+}
+
+const { title, icon, class: className } = Astro.props;
+const SPRITE = "/images/logos.svg";
+---
+
+<div
+  class:list={[
+    "relative flex flex-col items-center gap-1 cursor-help transition-colors hover:text-neutral-500 dark:hover:text-gray-300 group/item",
+    className,
+  ]}
+>
+  <svg class="w-12 h-12" role="img" aria-label={title}>
+    <use href={`${SPRITE}#${icon}`}></use>
+  </svg>
+  <div class="absolute -bottom-6 overflow-hidden">
+    <p class="text-sm whitespace-nowrap -translate-y-full opacity-0 text-neutral-800 dark:text-white transition-all duration-500 group-hover/item:translate-y-0 group-hover/item:opacity-100">
+      {title}
+    </p>
+  </div>
+</div>

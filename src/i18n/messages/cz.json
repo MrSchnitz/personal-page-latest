@@ -1,0 +1,114 @@
+{
+  "meta": {
+    "home": {
+      "title": "Jan Bauer – Frontend vývojář",
+      "description": "Osobní stránka Jana Bauera, frontend vývojáře se zaměřením na webové aplikace v Reactu, Next.js a TypeScriptu."
+    },
+    "about": {
+      "title": "O mně – Jan Bauer",
+      "description": "Kdo jsem: softwarový vývojář se zaměřením na frontend v Reactu a TypeScriptu, absolvent inženýrského studia informačních technologií."
+    },
+    "experiences": {
+      "title": "Zkušenosti – Jan Bauer",
+      "description": "Pracovní zkušenosti: softwarový inženýr v Kiwi.com, frontend vývojář v Seznam.cz a softwarový vývojář v Tietoevry."
+    },
+    "education": {
+      "title": "Vzdělání – Jan Bauer",
+      "description": "Inženýrské a bakalářské studium informačních a komunikačních technologií na VŠB – Technické univerzitě Ostrava."
+    },
+    "skills": {
+      "title": "Dovednosti – Jan Bauer",
+      "description": "Technologie, se kterými pracuji: JavaScript, TypeScript, React, Next.js, Node.js, Tailwind CSS a další."
+    }
+  },
+  "navigation": {
+    "home": "domů",
+    "about": "O mně",
+    "experiences": "Zkušenosti",
+    "education": "Vzdělání",
+    "skills": "Dovednosti"
+  },
+  "navigationArrows": {
+    "left": "Šipka vlevo",
+    "right": "Šipka vpravo"
+  },
+  "pages": {
+    "home": {
+      "title": "Jan Bauer",
+      "subtitle": "Frontend vývojář"
+    },
+    "about": {
+      "first": "Zdravím,\nJsem softwarový vývojář se zaměřením především na vývoj frontendu pro webové aplikace s využítím Reactu a TypeScriptu. Na backendu, pak používám nečastěji NodeJS a TypeScript. Jsem absolvent inženýrského studia informačních technologií na Vysoké škole Báňské – Technické univerzitě v Ostravě, což mi davá určité teoretické znalosti a praktické dovednosti v oboru.",
+      "second": "Kromě programování mně zajímá editovaní videí, pohyblivé grafiky nebo obrázků. Jinak pokud nejsem zrovna za počítačem, tak rád fotím a natáčím videa pomocí mojeho foťáku a dronu, rád běhám nebo jezdím na kole a potom následně odpočívám u filmů a seriálů."
+    },
+    "experiences": {
+      "kiwi": {
+        "title": "Kiwi.com",
+        "date": "1. 11. 2022 – dosud",
+        "position": "Softwarový inženýr",
+        "location": "Brno",
+        "description": [
+          "Vývoj rezervační stránky Kiwi.com a dalších služeb",
+          "Vývoj frontendových řešení pomocí React (TypeScript), Next.js, Redux a XState",
+          "Tvorba responzivních rozhraní pomocí TailwindCSS a Styled Components na základě Figma návrhů",
+          "Implementace moderních API integrací pomocí REST a GraphQL",
+          "Optimalizace webových aplikací pro kompatibilitu s mobilním WebView",
+          "Práce ve Scrum prostředí napříč několika vývojářskými týmy",
+          "Implementace sledování analytiky přes Datadog",
+          "Zajištění kvality kódu pomocí Jest unit testů a Cypress E2E testování",
+          "Správa nasazení pomocí GitLab CI/CD pipeline",
+          "Udržování standardů kódu pomocí code review"
+        ]
+      },
+      "seznam": {
+        "title": "Seznam.cz",
+        "date": "16. 8. 2021 – 31.10.2022",
+        "position": "Frontend vývojář",
+        "location": "Brno",
+        "description": [
+          "Vývoj hlavní stránky Seznam.cz, profilu Seznam.cz a dalších služeb",
+          "Práce v agilním týmu s backend, UX/UI a PM specialisty",
+          "Tvorba škálovatelných frontendových řešení pomocí React (TypeScript), Redux, Redux-Saga a Node.js",
+          "Implementace moderních API integrací pomocí REST a GraphQL",
+          "Tvorba responzivního UI pomocí TailwindCSS a SCSS podle Figma návrhů",
+          "Spolupráce na multiplatformních projektech",
+          "Sběr analytických dat využívaných v Grafaně",
+          "Udržování kvality kódu pomocí Jest unit testů a code review"
+        ]
+      },
+      "tieto": {
+        "title": "Tietoevry Czechia",
+        "date": "1. 3. 2018 – 1. 11. 2020",
+        "position": "Softwarový vývojář",
+        "location": "Ostrava",
+        "description": [
+          "První zkušenost s vývojem enterprise webových aplikací",
+          "Vývoj full-stack řešení pro interní firemní aplikace",
+          "Frontend: React (TypeScript), Redux, Redux-saga, Node.js, SCSS",
+          "Backend: Java, Spring Boot, PostgreSQL, MongoDB",
+          "Práce v agilním vývojovém prostředí"
+        ]
+      }
+    },
+    "education": {
+      "vsb-ing": {
+        "title": "Vysoká škola báňská – Technická univerzita Ostrava",
+        "faculty": "Fakulta elektrotechniky a informatiky",
+        "study": "Navazující magisterské studium",
+        "year": "2019 - 2021",
+        "location": "Ostrava",
+        "program": "Program: Informační a komunikační technologie",
+        "specialization": "Specializace: Informatika a výpočetní technika"
+      },
+      "vsb-bc": {
+        "title": "Vysoká škola báňská – Technická univerzita Ostrava",
+        "faculty": "Fakulta elektrotechniky a informatiky",
+        "study": "Bakalářské studium",
+        "year": "2016 - 2019",
+        "location": "Ostrava",
+        "program": "Program: Informační a komunikační technologie",
+        "specialization": "Specializace: Informatika a výpočetní technika"
+      }
+    }
+  }
+}

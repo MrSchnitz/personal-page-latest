@@ -1,0 +1,23 @@
+---
+import type { IconData } from "../config/icons";
+
+interface Props {
+  icon: IconData;
+  class?: string;
+  "data-arrow"?: string;
+}
+
+const { icon, class: className, ...rest } = Astro.props;
+---
+
+{/* sizing mirrors Font Awesome: height 1em (scaled via text-* on the class), width from aspect ratio */}
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  viewBox={icon.viewBox}
+  fill="currentColor"
+  aria-hidden="true"
+  class:list={["inline-block h-[1em] w-auto align-[-0.125em]", className]}
+  {...rest}
+>
+  <path d={icon.path}></path>
+</svg>

@@ -1,0 +1,60 @@
+---
+import Icon from "./Icon.astro";
+import { icons } from "../config/icons";
+import { LINKS, getActiveLink, localeHref, type PageKey } from "../config/links";
+import { useTranslations, type Locale } from "../i18n";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+const t = useTranslations(locale);
+const index = getActiveLink(page);
+
+const arrows = [
+  {
+    side: "right" as const,
+    link: index < LINKS.length - 1 ? LINKS[index + 1] : undefined,
+    icon: icons.arrowRight,
+    label: t("navigationArrows.right"),
+    position: "right-0",
+  },
+  {
+    side: "left" as const,
+    link: index > 0 ? LINKS[index - 1] : undefined,
+    icon: icons.arrowLeft,
+    label: t("navigationArrows.left"),
+    position: "left-0",
+  },
+];
+---
+
+{/* desktop only; real links so the ClientRouter intercepts them — ui.ts adds ArrowLeft/ArrowRight keys */}
+{
+  arrows.map(
+    ({ side, link, icon, label, position }) =>
+      link && (
+        <a
+          href={localeHref(locale, link.url)}
+          aria-label={label}
+          class:list={[
+            "fixed top-0 h-full hidden md:flex items-center transition-all cursor-pointer lg:hover:bg-slate-500/25 text-neutral-400 dark:text-gray-300 hover:text-neutral-600 dark:hover:text-white group/arrow",
+            position,
+          ]}
+        >
+          <span class="relative flex flex-col items-center gap-2 mx-2">
+            <Icon
+              icon={icon}
+              data-arrow={side}
+              class="mx-6 text-4xl transition-all data-pressed:text-neutral-600 dark:data-pressed:text-white"
+            />
+            <span class="absolute -bottom-6 whitespace-nowrap text-xs text-neutral-700 dark:text-gray-300 transition-all duration-700 opacity-0 group-hover/arrow:opacity-100">
+              {label}
+            </span>
+          </span>
+        </a>
+      )
+  )
+}

@@ -1,0 +1,20 @@
+---
+import Icon from "./Icon.astro";
+import { SOCIALS } from "../config/socials";
+---
+
+<div class="flex items-center justify-center">
+  {
+    SOCIALS.map(({ name, href, icon, blank }) => (
+      <a
+        class="text-neutral-500 dark:text-gray-300 hover:text-neutral-600 dark:hover:text-gray-500 transition-colors"
+        href={href}
+        target={blank ? "_blank" : undefined}
+        rel={blank ? "noopener" : undefined}
+        aria-label={name}
+      >
+        <Icon icon={icon} class="mr-6 text-2xl" />
+      </a>
+    ))
+  }
+</div>

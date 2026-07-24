@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { asLocale, useTranslations, getLocaleStaticPaths } from "../../i18n";
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+const locale = asLocale(Astro.params.locale);
+const t = useTranslations(locale);
+---
+
+<BaseLayout locale={locale} page="about">
+  <div class="md:px-4 w-full md:max-w-basic-page">
+    <div class="mb-6 text-justify text-neutral-800 dark:text-white whitespace-pre-wrap">{t("pages.about.first")}</div>
+    <div class="text-justify text-neutral-800 dark:text-white">{t("pages.about.second")}</div>
+  </div>
+</BaseLayout>

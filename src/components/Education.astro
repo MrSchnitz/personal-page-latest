@@ -1,0 +1,38 @@
+---
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  logo: ImageMetadata;
+  link: string;
+  title: string;
+  study: string;
+  location: string;
+  program: string;
+  specialization: string;
+  year: string;
+  class?: string;
+}
+
+const { logo, link, title, study, location, program, specialization, year, class: className } = Astro.props;
+---
+
+<div class:list={["flex items-start gap-3 md:gap-4", className]}>
+  <a href={link} target="_blank" rel="noopener" class="shrink-0">
+    <Image
+      src={logo}
+      alt=""
+      width={60}
+      height={60}
+      class="rounded-sm object-cover transition-all duration-300 cursor-pointer hover:scale-105"
+    />
+  </a>
+  <div class="text-sm text-neutral-800 dark:text-white">
+    <strong class="font-bold">{title}</strong>
+    <p class="font-semibold">{study}</p>
+    <p>{location}</p>
+    <p>{program}</p>
+    <p>{specialization}</p>
+    <p>{year}</p>
+  </div>
+</div>

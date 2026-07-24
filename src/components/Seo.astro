@@ -1,0 +1,37 @@
+---
+import { getImage } from "astro:assets";
+import { useTranslations, hreflang, locales, defaultLocale, type Locale } from "../i18n";
+import { LINKS, localeHref, type PageKey } from "../config/links";
+import me from "../assets/me.jpg";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+const t = useTranslations(locale);
+
+const title = t(`meta.${page}.title`);
+const description = t(`meta.${page}.description`);
+
+const segment = LINKS.find((link) => link.name === page)!.url;
+const urlFor = (l: Locale) => new URL(localeHref(l, segment), Astro.site).toString();
+const canonical = urlFor(locale);
+
+const ogImage = await getImage({ src: me, width: 800 });
+const ogImageUrl = new URL(ogImage.src, Astro.site).toString();
+---
+
+<title>{title}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+{locales.map((l) => <link rel="alternate" hreflang={hreflang[l]} href={urlFor(l)} />)}
+<link rel="alternate" hreflang="x-default" href={urlFor(defaultLocale)} />
+<meta property="og:type" content="website" />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta property="og:url" content={canonical} />
+<meta property="og:locale" content={hreflang[locale]} />
+<meta property="og:image" content={ogImageUrl} />
+<meta name="twitter:card" content="summary" />

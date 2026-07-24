@@ -1,0 +1,16 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Skill from "../../components/Skill.astro";
+import { SKILLS } from "../../config/skills";
+import { asLocale, getLocaleStaticPaths } from "../../i18n";
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+const locale = asLocale(Astro.params.locale);
+---
+
+<BaseLayout locale={locale} page="skills">
+  <div class="flex flex-wrap gap-x-10 gap-y-8 justify-around text-neutral-700 dark:text-white md:max-w-skills-page">
+    {SKILLS.map((skill) => <Skill title={skill.title} icon={skill.icon} class={skill.class} />)}
+  </div>
+</BaseLayout>

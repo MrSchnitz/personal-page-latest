@@ -1,0 +1,182 @@
+@import "tailwindcss";
+@import "@fontsource/source-code-pro/400.css";
+@import "@fontsource/source-code-pro/600.css";
+@import "@fontsource/source-code-pro/700.css";
+
+/* Class-based dark mode (the `dark` class is toggled on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+/* v3-style hover that also fires on tap on touch devices (skill/arrow tooltips rely on it) */
+@custom-variant hover (&:hover);
+
+@theme {
+  --color-primary: #ad4e6b;
+
+  /* page column widths — registered as both spacing (min-w-*) and container (max-w-*) tokens */
+  --spacing-basic-page: 35rem;
+  --spacing-basic-page-m: 40rem;
+  --spacing-ex-page-m: 40rem;
+  --spacing-skills-page: 40rem;
+  --container-basic-page: 35rem;
+  --container-basic-page-m: 40rem;
+  --container-ex-page-m: 40rem;
+  --container-skills-page: 40rem;
+}
+
+/* frosted-glass card behind the page shell (used as md:blur-bg) */
+@utility blur-bg {
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+}
+
+/* ── ported from personal-page-2023 app/[locale]/globals.css ── */
+
+html {
+  font-family: "Source Code Pro", monospace;
+  font-size: 16px;
+}
+
+body {
+  height: 100vh;
+  position: relative;
+  background: #d0d0d0;
+  background: radial-gradient(#ffffff, #e0e0e0);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* dark background is a fixed overlay so light↔dark can crossfade (1s) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  background: #485563;
+  background: radial-gradient(#485563, #29323c);
+  transition: 1s all;
+}
+
+.dark body::before {
+  opacity: 1;
+}
+
+/* mobile: gradient mask behind the sticky nav once the page is scrolled */
+.navigation-scroll {
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.navigation-scroll::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, #e0e0e0, #e0e0e0, #e0e0e0, #e0e0e0, transparent);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  z-index: -1;
+  opacity: 0;
+  transition: 0.3s all;
+}
+
+.dark .navigation-scroll::after {
+  background: linear-gradient(to bottom, #29323c, #29323c, #29323c, #29323c, transparent);
+}
+
+.navigation-scroll--show::after {
+  opacity: 1;
+}
+
+@supports not ((backdrop-filter: blur(5px)) or (-webkit-backdrop-filter: blur(5px))) {
+  .not-support-blur-bg {
+    display: none;
+  }
+}
+
+/* ── three.js background ──
+   Fade-in uses a transition + class (never keyframes): the wrapper is persisted
+   across view transitions, and keyframes would replay every time the node is
+   re-inserted into the new document. */
+.scene-wrap {
+  opacity: 0;
+  transition: opacity 3s;
+}
+
+.scene-wrap.scene-on {
+  opacity: 1;
+}
+
+.scene-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ── intro choreography (CSS port of the framer-motion template) ──
+   Gated on html:not(.intro-done): plays on full page loads only. The inline head
+   script adds .intro-done on astro:after-swap, so client-side navigations render
+   the shell statically and only the page content (.page-fade) fades in. */
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes frame-grow-x {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes frame-grow-y {
+  from { grid-template-rows: 0fr; }
+  to { grid-template-rows: 1fr; }
+}
+
+@keyframes frame-rise {
+  from { transform: translateY(100px); }
+  to { transform: translateY(0); }
+}
+
+/* page content fades on every load AND every client-side navigation */
+.page-fade {
+  animation: fade-in 0.5s 0.2s both;
+}
+
+/* mobile intro */
+html:not(.intro-done) .intro-frame {
+  animation: fade-in 0.5s both, frame-rise 1s 0.2s both;
+}
+
+html:not(.intro-done) [data-nav-scroll] {
+  animation: fade-in 0.5s 1s both;
+}
+
+html:not(.intro-done) .intro-footer {
+  animation: fade-in 0.5s 1.4s both;
+}
+
+/* desktop intro: border grows horizontally, then the frame opens vertically
+   (grid-template-rows 0fr→1fr reproduces framer-motion's measured height animation) */
+@media (min-width: 768px) {
+  html:not(.intro-done) .intro-frame {
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-items: center;
+    overflow: hidden;
+    animation: fade-in 0.5s both, frame-grow-x 1s 0.45s both, frame-grow-y 1s 1.3s both;
+  }
+
+  html:not(.intro-done) .intro-content {
+    min-height: 0;
+    animation: fade-in 1s 1s both;
+  }
+
+  html:not(.intro-done) [data-nav-scroll],
+  html:not(.intro-done) .intro-footer {
+    animation-delay: 2.1s;
+  }
+
+  html:not(.intro-done) .intro-arrows {
+    animation: fade-in 0.5s 2.5s both;
+  }
+}

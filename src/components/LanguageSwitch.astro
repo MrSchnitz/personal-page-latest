@@ -1,0 +1,28 @@
+---
+import { locales, type Locale } from "../i18n";
+import { LINKS, localeHref, type PageKey } from "../config/links";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+const segment = LINKS.find((link) => link.name === page)!.url;
+---
+
+<div class="text-neutral-600 dark:text-white">
+  {
+    locales.map((l, index) => (
+      <>
+        {index > 0 && <span class="mx-1">/</span>}
+        <a
+          class:list={["uppercase hover:font-bold transition-all", l === locale && "font-bold"]}
+          href={localeHref(l, segment)}
+        >
+          {l}
+        </a>
+      </>
+    ))
+  }
+</div>

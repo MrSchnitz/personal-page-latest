@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { asLocale, useTranslations, getLocaleStaticPaths } from "../../i18n";
+import me from "../../assets/me.jpg";
+
+export const getStaticPaths = getLocaleStaticPaths;
+
+const locale = asLocale(Astro.params.locale);
+const t = useTranslations(locale);
+---
+
+<BaseLayout locale={locale} page="home">
+  <div class="flex flex-col items-center justify-center">
+    <div class="flex flex-col items-center justify-center text-neutral-800 dark:text-white">
+      <Image
+        src={me}
+        alt="Jan"
+        width={160}
+        height={160}
+        densities={[1, 2]}
+        loading="eager"
+        fetchpriority="high"
+        class="w-40 h-40 mb-6 rounded-full object-cover"
+        style="object-position: 10%"
+      />
+      <h1 class="mx-auto text-3xl font-bold tracking-wider text-center">{t("pages.home.title")}</h1>
+      <hr class="w-16 my-6 border-neutral-500 dark:border-gray-300" />
+      <h2 class="text-lg tracking-wider text-center">{t("pages.home.subtitle")}</h2>
+    </div>
+  </div>
+</BaseLayout>

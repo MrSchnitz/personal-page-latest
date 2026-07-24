@@ -1,0 +1,84 @@
+---
+import { ClientRouter } from "astro:transitions";
+import Seo from "../components/Seo.astro";
+import SceneBackground from "../components/SceneBackground.astro";
+import Controls from "../components/Controls.astro";
+import Navigation from "../components/Navigation.astro";
+import Footer from "../components/Footer.astro";
+import { hreflang, type Locale } from "../i18n";
+import type { PageKey } from "../config/links";
+import "../styles/global.css";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+---
+
+<html lang={hreflang[locale]} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="generator" content={Astro.generator} />
+    <Seo locale={locale} page={page} />
+    <ClientRouter />
+    <script is:inline>
+      // Theme + view-transition lifecycle. Runs before first paint (anti-FOUC):
+      // default is dark, "light" in localStorage switches. astro:after-swap fires
+      // synchronously before the new page paints — the swap resets <html>
+      // attributes, so re-apply the theme and mark the intro as done (the intro
+      // choreography only plays on full page loads).
+      (function () {
+        var apply = function () {
+          document.documentElement.classList.toggle(
+            "dark",
+            localStorage.getItem("COLOR_SCHEME") !== "light"
+          );
+        };
+        apply();
+        document.addEventListener("astro:after-swap", function () {
+          document.documentElement.classList.add("intro-done");
+          apply();
+        });
+      })();
+    </script>
+  </head>
+  <body>
+    <SceneBackground />
+    <Controls locale={locale} page={page} />
+    <div
+      class="flex flex-col items-center justify-center px-6 pb-6 md:p-0 w-full md:h-screen transition duration-1000 ease-in-out text-neutral-800 dark:text-white"
+    >
+      <div class="md:relative md:blur-bg md:py-3 md:rounded-3xl">
+        <div
+          class="sticky z-10 py-16 md:p-0 -mx-6 md:m-0 top-0 overflow-hidden md:overflow-visible navigation-scroll"
+          data-nav-scroll
+        >
+          <Navigation locale={locale} page={page} />
+        </div>
+        <div
+          class="flex flex-col items-center justify-center pt-2 md:pt-0 w-full md:min-w-basic-page-m lg:min-w-basic-page md:max-w-fit"
+        >
+          <div
+            class="intro-frame flex flex-col items-center justify-center w-full mb-3 md:my-6 border-none md:border-solid border-t-2 border-b-2 border-neutral-500 dark:border-white"
+          >
+            <div class="intro-content pb-8 md:py-8 md:px-2 w-full grid place-content-center">
+              <div class="relative page-fade">
+                <slot />
+              </div>
+            </div>
+          </div>
+          <div class="relative intro-footer">
+            <Footer />
+          </div>
+        </div>
+      </div>
+    </div>
+    <script>
+      import "../scripts/ui";
+    </script>
+  </body>
+</html>

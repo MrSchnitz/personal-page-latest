@@ -1,0 +1,22 @@
+---
+import LanguageSwitch from "./LanguageSwitch.astro";
+import DarkModeToggle from "./DarkModeToggle.astro";
+import NavigationArrows from "./NavigationArrows.astro";
+import type { Locale } from "../i18n";
+import type { PageKey } from "../config/links";
+
+interface Props {
+  locale: Locale;
+  page: PageKey;
+}
+
+const { locale, page } = Astro.props;
+---
+
+<div class="fixed top-0 right-0 z-20 flex items-center gap-2 m-4 text-white">
+  <LanguageSwitch locale={locale} page={page} />
+  <DarkModeToggle />
+</div>
+<div class="intro-arrows">
+  <NavigationArrows locale={locale} page={page} />
+</div>
