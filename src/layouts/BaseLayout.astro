@@ -17,7 +17,10 @@ interface Props {
 const { locale, page } = Astro.props;
 ---
 
-<html lang={hreflang[locale]} class="dark">
+{/* transition:animate="none" kills the ClientRouter's default full-page
+    crossfade — the 2023 site swapped the shell statically and only faded the
+    page content in (.page-fade below). */}
+<html lang={hreflang[locale]} class="dark" transition:animate="none">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -65,9 +68,15 @@ const { locale, page } = Astro.props;
           <div
             class="intro-frame flex flex-col items-center justify-center w-full mb-3 md:my-6 border-none md:border-solid border-t-2 border-b-2 border-neutral-500 dark:border-white"
           >
-            <div class="intro-content pb-8 md:py-8 md:px-2 w-full grid place-content-center">
-              <div class="relative page-fade">
-                <slot />
+            {/* .intro-collapse is a padding-less grid item so the intro's
+                grid-template-rows: 0fr can truly reach zero height — with the
+                padded .intro-content as the item, its padding held the borders
+                ~4rem apart and the "line opens into a box" effect was lost. */}
+            <div class="intro-collapse w-full">
+              <div class="intro-content pb-8 md:py-8 md:px-2 w-full grid place-content-center">
+                <div class="relative page-fade">
+                  <slot />
+                </div>
               </div>
             </div>
           </div>

@@ -137,38 +137,49 @@ body::before {
   to { transform: translateY(0); }
 }
 
-/* page content fades on every load AND every client-side navigation */
+/* page content fades on every load AND every client-side navigation
+   (ease-in-out everywhere below = framer-motion's default tween easing) */
 .page-fade {
-  animation: fade-in 0.5s 0.2s both;
+  animation: fade-in 0.5s 0.2s ease-in-out both;
 }
 
 /* mobile intro */
 html:not(.intro-done) .intro-frame {
-  animation: fade-in 0.5s both, frame-rise 1s 0.2s both;
+  animation: fade-in 0.5s ease-in-out both, frame-rise 1s 0.2s ease-in-out both;
 }
 
 html:not(.intro-done) [data-nav-scroll] {
-  animation: fade-in 0.5s 1s both;
+  animation: fade-in 0.5s 1s ease-in-out both;
 }
 
 html:not(.intro-done) .intro-footer {
-  animation: fade-in 0.5s 1.4s both;
+  animation: fade-in 0.5s 1.4s ease-in-out both;
 }
 
 /* desktop intro: border grows horizontally, then the frame opens vertically
-   (grid-template-rows 0fr→1fr reproduces framer-motion's measured height animation) */
+   (grid-template-rows 0fr→1fr reproduces framer-motion's measured height
+   animation). The collapsing grid item is the padding-less .intro-collapse —
+   with min-height: 0 it lets the 0fr track reach zero height, so the two
+   borders start as a single line; the padded .intro-content inside just
+   overflows and is clipped by the frame's overflow: hidden. */
 @media (min-width: 768px) {
   html:not(.intro-done) .intro-frame {
     display: grid;
     grid-template-rows: 1fr;
     justify-items: center;
     overflow: hidden;
-    animation: fade-in 0.5s both, frame-grow-x 1s 0.45s both, frame-grow-y 1s 1.3s both;
+    animation:
+      fade-in 0.5s ease-in-out both,
+      frame-grow-x 1s 0.45s ease-in-out both,
+      frame-grow-y 1s 1.3s ease-in-out both;
+  }
+
+  html:not(.intro-done) .intro-collapse {
+    min-height: 0;
   }
 
   html:not(.intro-done) .intro-content {
-    min-height: 0;
-    animation: fade-in 1s 1s both;
+    animation: fade-in 1s 1s ease-in-out both;
   }
 
   html:not(.intro-done) [data-nav-scroll],
@@ -177,6 +188,6 @@ html:not(.intro-done) .intro-footer {
   }
 
   html:not(.intro-done) .intro-arrows {
-    animation: fade-in 0.5s 2.5s both;
+    animation: fade-in 0.5s 2.5s ease-in-out both;
   }
 }
