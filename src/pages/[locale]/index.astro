@@ -12,20 +12,40 @@ const t = useTranslations(locale);
 
 <BaseLayout locale={locale} page="home">
   <div class="flex flex-col items-center justify-center">
-    <div class="flex flex-col items-center justify-center text-neutral-800 dark:text-white">
-      <Image
-        src={me}
-        alt="Jan"
-        width={160}
-        height={160}
-        densities={[1, 2]}
-        loading="eager"
-        fetchpriority="high"
-        class="w-40 h-40 mb-6 rounded-full object-cover"
-      />
-      <h1 class="mx-auto text-3xl font-bold tracking-wider text-center">{t("pages.home.title")}</h1>
-      <hr class="w-16 my-6 border-neutral-500 dark:border-gray-300" />
-      <h2 class="text-lg tracking-wider text-center">{t("pages.home.subtitle")}</h2>
+    <div class="flex flex-col items-center justify-center">
+      <p class="mb-5 font-mono text-xs text-accent-deep dark:text-accent" aria-hidden="true">~$ whoami</p>
+      <div class="relative mb-6">
+        <div
+          class="absolute -inset-3 rounded-full bg-linear-140 from-accent/35 to-accent-2/35 blur-xl"
+          aria-hidden="true"
+        >
+        </div>
+        <div class="relative rounded-full p-0.75 bg-linear-140 from-accent to-accent-2">
+          <Image
+            src={me}
+            alt="Jan"
+            width={160}
+            height={160}
+            densities={[1, 2]}
+            loading="eager"
+            fetchpriority="high"
+            class="w-40 h-40 rounded-full object-cover ring-4 ring-white/40 dark:ring-slate-900/40"
+          />
+        </div>
+      </div>
+      {/* data-typewriter: ui.ts types these out in order on the initial full load
+          (min-h-lh keeps the layout stable while the text is empty) */}
+      <h1 class="mx-auto min-h-lh text-4xl md:text-5xl font-bold tracking-tight text-center">
+        <span data-typewriter="1" data-type-speed="60">{t("pages.home.title")}</span>
+      </h1>
+      <hr class="accent-rule w-24 my-6" />
+      <h2
+        class="min-h-lh font-mono text-base md:text-lg tracking-wider text-center text-slate-600 dark:text-slate-300"
+      >
+        <span data-typewriter="2" data-type-speed="45">{t("pages.home.subtitle")}</span><span
+          class="cursor-blink"
+          aria-hidden="true"></span>
+      </h2>
     </div>
   </div>
 </BaseLayout>

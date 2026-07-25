@@ -16,6 +16,11 @@ import { TextGeometry } from "three/addons/geometries/TextGeometry.js";
 const GLYPH_COUNT = 300;
 const MATCAP_URL = "/matcaps/7A7A7A_D9D9D9_BCBCBC_B4B4B4-256px.png";
 const FONT_URL = "/fonts/source-code-pro-subset.typeface.json";
+/* brand emerald, kept light so the multiply with the chrome matcap stays metallic */
+const ACCENT_TINT = "#7dedc4";
+/* radians of extra group rotation at full pointer deflection */
+const PARALLAX_X = 0.12;
+const PARALLAX_Y = 0.08;
 
 const wrap = document.getElementById("scene");
 const canvas = document.getElementById("scene-canvas");
@@ -67,22 +72,41 @@ function initScene(wrap: HTMLElement, canvas: HTMLCanvasElement) {
     const rotation = new THREE.Quaternion();
     const euler = new THREE.Euler();
     const scale = new THREE.Vector3();
+    const white = new THREE.Color(0xffffff);
+    const accent = new THREE.Color(ACCENT_TINT);
     for (let i = 0; i < GLYPH_COUNT; i++) {
       position.set((Math.random() - 0.5) * 10, (Math.random() - 0.5) * 8, (Math.random() - 0.5) * 10);
       rotation.setFromEuler(euler.set(Math.random() * Math.PI, Math.random() * Math.PI, 0));
       scale.setScalar(0.2 + Math.random() * 0.2);
       mesh.setMatrixAt(i, matrix.compose(position, rotation, scale));
+      // brand accent: ~1 in 8 glyphs gets the emerald tint (multiplies the matcap)
+      mesh.setColorAt(i, Math.random() < 0.125 ? accent : white);
     }
     group.add(mesh);
   });
 
+  // pointer parallax: the glyph field leans gently toward the cursor
+  const pointer = { x: 0, y: 0 };
+  window.addEventListener("pointermove", (event) => {
+    pointer.x = (event.clientX / window.innerWidth) * 2 - 1;
+    pointer.y = (event.clientY / window.innerHeight) * 2 - 1;
+  });
+
   let previousTime: number | undefined;
+  let driftAngle = 0;
+  const parallax = { x: 0, y: 0 };
   const renderFrame = (time: number) => {
     // delta from the loop timestamp (THREE.Clock is deprecated); clamped so a
     // backgrounded tab or a restored context doesn't cause a position jump
     const delta = previousTime === undefined ? 0 : Math.min((time - previousTime) / 1000, 0.1);
     previousTime = time;
     group.position.z += delta * Math.sin((time / 1000) * 0.5) * 0.1;
+    // slow constant drift + smoothed pointer parallax
+    driftAngle += delta * 0.012;
+    parallax.x += (pointer.x * PARALLAX_X - parallax.x) * Math.min(delta * 2.5, 1);
+    parallax.y += (pointer.y * PARALLAX_Y - parallax.y) * Math.min(delta * 2.5, 1);
+    group.rotation.y = driftAngle + parallax.x;
+    group.rotation.x = parallax.y;
     controls.update(); // required: damping is enabled
     renderer.render(scene, camera);
   };

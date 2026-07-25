@@ -40,7 +40,7 @@ const arrows = [
           href={localeHref(locale, link.url)}
           aria-label={label}
           class:list={[
-            "fixed top-0 h-full hidden md:flex items-center transition-all cursor-pointer lg:hover:bg-slate-500/25 text-neutral-400 dark:text-gray-300 hover:text-neutral-600 dark:hover:text-white group/arrow",
+            "fixed top-0 h-full hidden md:flex items-center transition-all cursor-pointer lg:hover:bg-slate-500/10 text-slate-400 dark:text-slate-400 hover:text-accent-deep dark:hover:text-accent group/arrow",
             position,
           ]}
         >
@@ -48,9 +48,9 @@ const arrows = [
             <Icon
               icon={icon}
               data-arrow={side}
-              class="mx-6 text-4xl transition-all data-pressed:text-neutral-600 dark:data-pressed:text-white"
+              class="mx-6 text-3xl transition-all group-hover/arrow:scale-110 data-pressed:text-accent-deep dark:data-pressed:text-accent"
             />
-            <span class="absolute -bottom-6 whitespace-nowrap text-xs text-neutral-700 dark:text-gray-300 transition-all duration-700 opacity-0 group-hover/arrow:opacity-100">
+            <span class="absolute -bottom-6 whitespace-nowrap font-mono text-xs text-slate-600 dark:text-slate-300 transition-all duration-700 opacity-0 group-hover/arrow:opacity-100">
               {label}
             </span>
           </span>

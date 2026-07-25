@@ -10,7 +10,10 @@ const locale = asLocale(Astro.params.locale);
 ---
 
 <BaseLayout locale={locale} page="skills">
-  <div class="flex flex-wrap gap-x-10 gap-y-8 justify-around text-neutral-700 dark:text-white md:max-w-skills-page">
-    {SKILLS.map((skill) => <Skill title={skill.title} icon={skill.icon} class={skill.class} />)}
+  <div class="md:max-w-skills-page">
+    <p class="mb-5 font-mono text-xs text-accent-deep dark:text-accent" aria-hidden="true">~$ ls skills/</p>
+    <div class="flex flex-wrap gap-3 justify-center text-slate-700 dark:text-slate-200">
+      {SKILLS.map((skill) => <Skill title={skill.title} icon={skill.icon} class={skill.class} />)}
+    </div>
   </div>
 </BaseLayout>

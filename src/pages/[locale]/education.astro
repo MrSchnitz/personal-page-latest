@@ -11,6 +11,7 @@ const t = useTranslations(locale);
 ---
 
 <BaseLayout locale={locale} page="education">
+  <p class="mb-5 font-mono text-xs text-accent-deep dark:text-accent" aria-hidden="true">~$ ls education/</p>
   {
     EDUCATION.map((education, index) => (
       <Education

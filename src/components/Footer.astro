@@ -3,17 +3,17 @@ import Icon from "./Icon.astro";
 import { SOCIALS } from "../config/socials";
 ---
 
-<div class="flex items-center justify-center">
+<div class="flex items-center justify-center gap-3">
   {
     SOCIALS.map(({ name, href, icon, blank }) => (
       <a
-        class="text-neutral-500 dark:text-gray-300 hover:text-neutral-600 dark:hover:text-gray-500 transition-colors"
+        class="glass grid place-items-center w-10 h-10 rounded-full backdrop-blur-md text-slate-600 dark:text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:text-accent-deep dark:hover:text-accent hover:shadow-[0_0_14px_rgb(45_212_191/0.35)]"
         href={href}
         target={blank ? "_blank" : undefined}
         rel={blank ? "noopener" : undefined}
         aria-label={name}
       >
-        <Icon icon={icon} class="mr-6 text-2xl" />
+        <Icon icon={icon} class="text-lg" />
       </a>
     ))
   }

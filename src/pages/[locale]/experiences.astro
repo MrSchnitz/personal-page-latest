@@ -12,6 +12,7 @@ const t = useTranslations(locale);
 
 <BaseLayout locale={locale} page="experiences">
   <div class="md:max-w-ex-page-m lg:max-w-fit">
+    <p class="mb-5 font-mono text-xs text-accent-deep dark:text-accent" aria-hidden="true">~$ git log --career</p>
     {
       EXPERIENCES.map((experience, index) => (
         <Experience

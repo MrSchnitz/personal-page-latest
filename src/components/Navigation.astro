@@ -11,22 +11,23 @@ const { locale, page } = Astro.props;
 const t = useTranslations(locale);
 ---
 
-<div class="relative flex flex-wrap gap-4 md:gap-2 justify-center leading-6 px-10 md:px-0">
-  {
-    LINKS.map((link) => (
-      <a
-        href={localeHref(locale, link.url)}
-        class:list={[
-          "py-0.5 px-3 text-xs leading-6 uppercase rounded-full",
-          "ring-1 hover:ring-2 transition-all",
-          "text-neutral-700 dark:text-gray-200 ring-neutral-700 dark:ring-gray-200",
-          link.name === page &&
-            "font-semibold ring-2 bg-neutral-700 text-gray-100! dark:bg-gray-200 dark:text-[#485563]!",
-        ]}
-        aria-current={link.name === page ? "page" : undefined}
-      >
-        {t(`navigation.${link.name}`)}
-      </a>
-    ))
-  }
+<div class="relative flex justify-center px-10 md:px-0">
+  <div class="glass flex flex-wrap gap-1 justify-center rounded-full p-1.5 backdrop-blur-md">
+    {
+      LINKS.map((link) => (
+        <a
+          href={localeHref(locale, link.url)}
+          class:list={[
+            "py-1 px-3.5 font-mono text-xs leading-5 uppercase tracking-wider rounded-full transition-all",
+            link.name === page
+              ? "font-semibold text-slate-900 bg-linear-100 from-accent to-accent-2 shadow-[0_0_14px_rgb(45_212_191/0.45)]"
+              : "text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-900/5 dark:hover:bg-white/10",
+          ]}
+          aria-current={link.name === page ? "page" : undefined}
+        >
+          {t(`navigation.${link.name}`)}
+        </a>
+      ))
+    }
+  </div>
 </div>

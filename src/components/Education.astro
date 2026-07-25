@@ -17,22 +17,24 @@ interface Props {
 const { logo, link, title, study, location, program, specialization, year, class: className } = Astro.props;
 ---
 
-<div class:list={["flex items-start gap-3 md:gap-4", className]}>
+<div class:list={["glass flex items-start gap-4 md:gap-5 rounded-2xl p-5 backdrop-blur-md", className]}>
   <a href={link} target="_blank" rel="noopener" class="shrink-0">
     <Image
       src={logo}
       alt=""
       width={60}
       height={60}
-      class="rounded-sm object-cover transition-all duration-300 cursor-pointer hover:scale-105"
+      class="rounded-lg transition-transform duration-300 cursor-pointer hover:scale-105"
     />
   </a>
-  <div class="text-sm text-neutral-800 dark:text-white">
-    <strong class="font-bold">{title}</strong>
-    <p class="font-semibold">{study}</p>
-    <p>{location}</p>
-    <p>{program}</p>
-    <p>{specialization}</p>
-    <p>{year}</p>
+  <div class="text-sm">
+    <strong class="block text-base font-bold tracking-tight">{title}</strong>
+    <p class="font-semibold text-accent-deep dark:text-accent">{study}</p>
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-1 my-1.5">
+      <span class="glass rounded-full px-3 py-0.5 font-mono text-xs text-slate-600 dark:text-slate-300">{year}</span>
+      <span class="font-mono text-xs text-slate-500 dark:text-slate-400">{location}</span>
+    </div>
+    <p class="text-slate-700 dark:text-slate-300">{program}</p>
+    <p class="text-slate-700 dark:text-slate-300">{specialization}</p>
   </div>
 </div>

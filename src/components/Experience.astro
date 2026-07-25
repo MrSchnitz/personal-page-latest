@@ -17,28 +17,40 @@ interface Props {
 const { logo, logoWhite, title, link, date, position, location, description, class: className } = Astro.props;
 ---
 
-<div class:list={["flex flex-col md:flex-row md:items-start gap-2 md:gap-4", className]}>
-  <a href={link} target="_blank" rel="noopener" class="shrink-0 self-center">
-    <Image
-      src={logo}
-      alt=""
-      width={150}
-      class="w-37.5 h-auto object-contain transition-all duration-300 cursor-pointer hover:scale-105 dark:hidden"
-    />
-    <Image
-      src={logoWhite}
-      alt=""
-      width={150}
-      class="w-37.5 h-auto object-contain transition-all duration-300 cursor-pointer hover:scale-105 hidden dark:block"
-    />
-  </a>
-  <div class="text-sm text-neutral-800 dark:text-white">
-    <strong class="font-bold">{title}</strong>
-    <p class="font-semibold">{position}</p>
-    <p>{date}</p>
-    <p>{location}</p>
-    <ul class="list-disc list-inside">
-      {description.map((line) => <li>{line}</li>)}
-    </ul>
+{/* timeline entry: accent rail + dot on the left, content card on the right */}
+<div class:list={["relative pl-6 md:pl-8", className]}>
+  <span
+    class="absolute left-0 top-0 bottom-0 w-px bg-linear-to-b from-accent/70 via-accent-2/40 to-transparent"
+    aria-hidden="true"></span>
+  <span
+    class="absolute left-[-4.5px] top-1.5 w-2.5 h-2.5 rounded-full bg-accent shadow-[0_0_10px_rgb(52_211_153/0.8)]"
+    aria-hidden="true"></span>
+
+  <div class="flex flex-col md:flex-row md:items-start gap-3 md:gap-6">
+    <a href={link} target="_blank" rel="noopener" class="shrink-0 self-start group/logo">
+      <Image
+        src={logo}
+        alt=""
+        width={150}
+        class="w-24 h-auto object-contain transition-transform duration-300 group-hover/logo:scale-105 dark:hidden"
+      />
+      <Image
+        src={logoWhite}
+        alt=""
+        width={150}
+        class="w-24 h-auto object-contain transition-transform duration-300 group-hover/logo:scale-105 hidden dark:block"
+      />
+    </a>
+    <div class="text-sm">
+      <div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+        <strong class="text-base font-bold tracking-tight">{title}</strong>
+        <span class="glass rounded-full px-3 py-0.5 font-mono text-xs text-slate-600 dark:text-slate-300">{date}</span>
+        <span class="font-mono text-xs text-slate-500 dark:text-slate-400">{location}</span>
+      </div>
+      <p class="font-semibold text-accent-deep dark:text-accent">{position}</p>
+      <ul class="mt-1.5 list-disc list-outside pl-4 marker:text-accent-2 text-slate-700 dark:text-slate-300">
+        {description.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
   </div>
 </div>

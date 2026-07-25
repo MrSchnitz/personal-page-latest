@@ -10,7 +10,10 @@ const t = useTranslations(locale);
 
 <BaseLayout locale={locale} page="about">
   <div class="md:px-4 w-full md:max-w-basic-page">
-    <div class="mb-6 text-justify text-neutral-800 dark:text-white whitespace-pre-wrap">{t("pages.about.first")}</div>
-    <div class="text-justify text-neutral-800 dark:text-white">{t("pages.about.second")}</div>
+    <p class="mb-5 font-mono text-xs text-accent-deep dark:text-accent" aria-hidden="true">~$ cat about.md</p>
+    <div class="mb-6 leading-relaxed text-slate-700 dark:text-slate-200 whitespace-pre-wrap">
+      {t("pages.about.first")}
+    </div>
+    <div class="leading-relaxed text-slate-700 dark:text-slate-200">{t("pages.about.second")}</div>
   </div>
 </BaseLayout>

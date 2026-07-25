@@ -22,7 +22,7 @@ export const SKILLS: SkillEntry[] = [
   { title: "Tailwind CSS", icon: "tailwind" },
   { title: "NestJS", icon: "nestjs" },
   { title: "Spring Boot", icon: "springboot" },
-  { title: "MongoDB", icon: "mongo", class: "hidden md:block" },
+  { title: "MongoDB", icon: "mongo", class: "hidden md:flex" },
   { title: "PostgreSQL", icon: "postgresql" },
   { title: "Figma", icon: "figma" },
   { title: "Adobe After Effects", icon: "afterEffects" },
