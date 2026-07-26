@@ -77,10 +77,17 @@ body {
   height: 100vh;
   position: relative;
   background: #dfe6e9;
+}
+
+/* the light radial lives on a FIXED layer so it stays glued to the viewport
+   while the document scrolls on mobile — painted on body it ended at 100vh,
+   leaving a visible seam against the flat fallback color further down */
+html::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
   background: radial-gradient(ellipse at 50% 30%, #f2f6f6, #d9e1e5 var(--bg-stop, 70%), #c5d0d7);
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 /* dark background is a fixed overlay so light↔dark can crossfade (1s) */
@@ -255,7 +262,7 @@ body::after {
   }
 }
 
-html:not(.intro-done) body,
+html:not(.intro-done)::before,
 html:not(.intro-done) body::before {
   animation: bg-bloom 2.6s ease-out both;
 }
@@ -265,7 +272,7 @@ html:not(.intro-done) body::after {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html:not(.intro-done) body,
+  html:not(.intro-done)::before,
   html:not(.intro-done) body::before,
   html:not(.intro-done) body::after {
     animation: none;
