@@ -1,6 +1,6 @@
-# personal-page-2026
+# Jan Bauer's personal page
 
-Personal page of Jan Bauer — a complete rebuild of [personal-page-2023](https://github.com/MrSchnitz/personal-page-2023) (Next.js 14 + React) as an **Astro 5 static site with zero React**, deployed on **Cloudflare Workers** static assets.
+A new rebuilded personal page of Jan Bauer using **Astro 7 static site with zero React**, deployed on **Cloudflare Workers** static assets.
 
 ## Stack
 
