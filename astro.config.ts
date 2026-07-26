@@ -7,7 +7,7 @@ import { locales, defaultLocale, hreflang } from "./src/i18n/config";
 const { PUBLIC_SITE_URL } = loadEnv(process.env.NODE_ENV ?? "production", process.cwd(), "");
 
 export default defineConfig({
-  site: PUBLIC_SITE_URL || "https://personal-page-2026.workers.dev",
+  site: PUBLIC_SITE_URL || "https://personal-page.workers.dev",
   output: "static",
   // URL parity with the old Next.js site: /en/about, no trailing slash
   build: { format: "file" },

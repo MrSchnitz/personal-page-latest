@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "personal-page-2026",
+  "name": "personal-page",
   "main": "src/worker.ts",
   "compatibility_date": "2026-07-01",
   "observability": { "enabled": true },
