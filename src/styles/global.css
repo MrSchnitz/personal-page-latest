@@ -76,10 +76,18 @@ html {
   initial-value: 70%;
 }
 
+/* body carries a REAL flat background color per theme (not just the fixed
+   gradient overlays) — accessibility tooling computes text contrast against
+   the nearest ancestor background-color and can't see pseudo-element layers */
 body {
   height: 100vh;
   position: relative;
-  background: #dfe6e9;
+  background-color: #dfe6e9;
+  transition: background-color 1s;
+}
+
+.dark body {
+  background-color: #0b1017;
 }
 
 /* the light radial lives on a FIXED layer so it stays glued to the viewport
@@ -297,6 +305,12 @@ html:not(.intro-done) body::after {
   to { transform: translateY(0); }
 }
 
+/* both keyframes hold the same discrete value → applies for the whole duration */
+@keyframes intro-scroll-lock {
+  from { overflow: hidden; }
+  to { overflow: hidden; }
+}
+
 /* page content fades on every load AND every client-side navigation
    (ease-in-out everywhere below = framer-motion's default tween easing) */
 .page-fade {
@@ -401,6 +415,11 @@ html:not(.intro-done) .intro-footer {
   html:not(.intro-done) .intro-frame {
     display: grid;
     grid-template-rows: 1fr;
+    /* explicit full-width column — an auto track treats the item's w-full as
+       content-sized, shrink-wrapping .intro-collapse around the hero; its
+       overflow box then clipped the avatar glow and painted a scrollbar
+       right next to the photo */
+    grid-template-columns: 100%;
     justify-items: center;
     overflow: hidden;
     animation:
@@ -411,6 +430,9 @@ html:not(.intro-done) .intro-footer {
 
   html:not(.intro-done) .intro-collapse {
     min-height: 0;
+    /* no scrollbar flash while the frame is opening — holds overflow: hidden
+       for the intro's duration, then reverts to the regular overflow-y auto */
+    animation: intro-scroll-lock 2.3s;
   }
 
   html:not(.intro-done) .intro-content {

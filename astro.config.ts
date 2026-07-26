@@ -9,8 +9,10 @@ const { PUBLIC_SITE_URL } = loadEnv(process.env.NODE_ENV ?? "production", proces
 export default defineConfig({
   site: PUBLIC_SITE_URL || "https://personal-page.workers.dev",
   output: "static",
-  // URL parity with the old Next.js site: /en/about, no trailing slash
-  build: { format: "file" },
+  // URL parity with the old Next.js site: /en/about, no trailing slash.
+  // inlineStylesheets: the single ~63KB stylesheet goes into the HTML — one
+  // less render-blocking request on every page load
+  build: { format: "file", inlineStylesheets: "always" },
   i18n: {
     locales: [...locales],
     defaultLocale,
