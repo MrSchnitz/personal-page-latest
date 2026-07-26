@@ -2,7 +2,11 @@
 import { getImage } from "astro:assets";
 import { useTranslations, hreflang, locales, defaultLocale, type Locale } from "../i18n";
 import { LINKS, localeHref, type PageKey } from "../config/links";
-import me from "../assets/me.jpg";
+import { SITE } from "../config/site";
+import { SKILLS } from "../config/skills";
+import { EXPERIENCES } from "../config/experiences";
+import { EDUCATION } from "../config/education";
+import meSquare from "../assets/me-square.jpg";
 
 interface Props {
   locale: Locale;
@@ -19,8 +23,57 @@ const segment = LINKS.find((link) => link.name === page)!.url;
 const urlFor = (l: Locale) => new URL(localeHref(l, segment), Astro.site).toString();
 const canonical = urlFor(locale);
 
-const ogImage = await getImage({ src: me, width: 800 });
-const ogImageUrl = new URL(ogImage.src, Astro.site).toString();
+/* og:locale wants language_TERRITORY, keyed here by the hreflang code */
+const OG_LOCALE: Record<string, string> = { en: "en_US", cs: "cs_CZ" };
+
+/* link-preview card: the hand-made 1200×630 JPG in public/ — referenced at its
+   stable unhashed URL (never import from public/, that duplicates the asset) */
+const ogImageUrl = new URL("/og-image.jpg", Astro.site).toString();
+
+/* Person schema keeps the square portrait — better for knowledge panels than a banner */
+const portrait = await getImage({ src: meSquare, width: 800, height: 800, format: "jpeg" });
+const portraitUrl = new URL(portrait.src, Astro.site).toString();
+
+/* ── structured data (Person + WebSite) for search & answer engines ── */
+const siteUrl = Astro.site!.toString();
+const personId = new URL("#person", Astro.site).toString();
+const currentJob = EXPERIENCES[0];
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Person",
+      "@id": personId,
+      name: "Jan Bauer",
+      jobTitle: t("pages.home.subtitle"),
+      description: t("meta.home.description"),
+      image: portraitUrl,
+      url: new URL(localeHref(locale, ""), Astro.site).toString(),
+      email: `mailto:${SITE.contactEmail}`,
+      sameAs: [SITE.linkedin, SITE.github, SITE.youtube],
+      worksFor: {
+        "@type": "Organization",
+        name: t(`pages.experiences.${currentJob.key}.title`),
+        url: currentJob.link,
+      },
+      alumniOf: {
+        "@type": "CollegeOrUniversity",
+        name: t(`pages.education.${EDUCATION[0].key}.title`),
+        url: EDUCATION[0].link,
+      },
+      knowsAbout: SKILLS.map((skill) => skill.title),
+      knowsLanguage: locales.map((l) => hreflang[l]),
+    },
+    {
+      "@type": "WebSite",
+      "@id": new URL("#website", Astro.site).toString(),
+      url: siteUrl,
+      name: "Jan Bauer",
+      inLanguage: locales.map((l) => hreflang[l]),
+      publisher: { "@id": personId },
+    },
+  ],
+};
 ---
 
 <title>{title}</title>
@@ -28,10 +81,25 @@ const ogImageUrl = new URL(ogImage.src, Astro.site).toString();
 <link rel="canonical" href={canonical} />
 {locales.map((l) => <link rel="alternate" hreflang={hreflang[l]} href={urlFor(l)} />)}
 <link rel="alternate" hreflang="x-default" href={urlFor(defaultLocale)} />
-<meta property="og:type" content="website" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0b1017" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#d9e1e5" />
+<meta property="og:type" content={page === "home" ? "profile" : "website"} />
+{page === "home" && <meta property="profile:first_name" content="Jan" />}
+{page === "home" && <meta property="profile:last_name" content="Bauer" />}
+<meta property="og:site_name" content="Jan Bauer" />
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:url" content={canonical} />
-<meta property="og:locale" content={hreflang[locale]} />
+<meta property="og:locale" content={OG_LOCALE[hreflang[locale]] ?? hreflang[locale]} />
+{
+  locales
+    .filter((l) => l !== locale)
+    .map((l) => <meta property="og:locale:alternate" content={OG_LOCALE[hreflang[l]] ?? hreflang[l]} />)
+}
 <meta property="og:image" content={ogImageUrl} />
-<meta name="twitter:card" content="summary" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:type" content="image/jpeg" />
+<meta property="og:image:alt" content="Jan Bauer – Frontend developer" />
+<meta name="twitter:card" content="summary_large_image" />
+<script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
