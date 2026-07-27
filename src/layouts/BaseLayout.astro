@@ -1,6 +1,9 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import Seo from "../components/Seo.astro";
+import spaceGrotesk400 from "@fontsource/space-grotesk/files/space-grotesk-latin-400-normal.woff2?url";
+import spaceGrotesk700 from "@fontsource/space-grotesk/files/space-grotesk-latin-700-normal.woff2?url";
+import sourceCodePro400 from "@fontsource/source-code-pro/files/source-code-pro-latin-400-normal.woff2?url";
 import SceneBackground from "../components/SceneBackground.astro";
 import Controls from "../components/Controls.astro";
 import Navigation from "../components/Navigation.astro";
@@ -32,6 +35,13 @@ const { locale, page } = Astro.props;
     <meta name="apple-mobile-web-app-title" content="Jan Bauer" />
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="generator" content={Astro.generator} />
+    {/* critical latin fonts, preloaded so text paints in its final face ASAP */}
+    {
+      [spaceGrotesk400, spaceGrotesk700, sourceCodePro400].map((href) => (
+        <link rel="preload" as="font" type="font/woff2" href={href} crossorigin />
+      ))
+    }
+    <slot name="head" />
     <Seo locale={locale} page={page} />
     <ClientRouter />
     <script is:inline>

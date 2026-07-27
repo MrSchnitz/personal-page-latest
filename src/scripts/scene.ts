@@ -18,7 +18,16 @@ const wrap = document.getElementById("scene");
 const canvas = document.getElementById("scene-canvas");
 
 if (wrap instanceof HTMLElement && canvas instanceof HTMLCanvasElement) {
-  initScene(wrap, canvas);
+  // start only after load + idle: the scene is invisible until its 2–3s fade-in,
+  // so its ~550KB worker bundle shouldn't compete with fonts/the hero image for
+  // bandwidth (or add main-thread coordination) during the critical window
+  const start = () => initScene(wrap, canvas);
+  const schedule = () =>
+    typeof requestIdleCallback === "function"
+      ? requestIdleCallback(start, { timeout: 1500 })
+      : window.setTimeout(start, 200);
+  if (document.readyState === "complete") schedule();
+  else window.addEventListener("load", schedule, { once: true });
 }
 
 async function initScene(wrap: HTMLElement, canvas: HTMLCanvasElement) {
